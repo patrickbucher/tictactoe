@@ -15,7 +15,7 @@ def simulation():
         Results.PLAYER_O_WINS: 0,
         Results.DRAW: 0,
     }
-    player_x = (Fields.PLAYER_X, middle_corner_random_option_strategy)
+    player_x = (Fields.PLAYER_X, corner_middle_random_option_strategy)
     player_o = (Fields.PLAYER_O, corner_random_option_strategy)
     player_starts = player_x
     for run in range(runs):
@@ -68,16 +68,16 @@ def corner_random_option_strategy(board):
 
     return random.choice(options)
 
-def middle_corner_random_option_strategy(board):
+def corner_middle_random_option_strategy(board):
     options = board.empty_fields()
 
     corners = [1, 3, 7, 9]
     random.shuffle(corners)
-    if 5 in options:
-        return 5
     for corner in corners:
         if corner in options:
             return corner
+    if 5 in options:
+        return 5
 
     return random.choice(options)
 
