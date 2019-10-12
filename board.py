@@ -33,3 +33,37 @@ class Board:
             self.board[index] = player
         else:
             raise ValueError('cannot set {:s} to {:d}'.format(player, pos))
+
+
+    def winner(self):
+        return self.row_winner() or self.col_winner() or self.cross_winner() or None;
+
+
+    def row_winner(self):
+        rows = [[j for j in range(i, i+3)] for i in range(0, 9, 3)]
+        return self.sublist_with_all_of_same(rows)
+
+
+    def col_winner(self):
+        cols = [[j for j in range(i, 9, 3)] for i in range(0, 3)]
+        return self.sublist_with_all_of_same(cols)
+
+
+    def cross_winner(self):
+        crosses = [[0, 4, 8], [2, 4, 6]]
+        return self.sublist_with_all_of_same(crosses)
+
+
+    def sublist_with_all_of_same(self, lists):
+        for player in Fields.players():
+            for sublist in lists:
+                if self.all_of_same(sublist, player):
+                    return player
+        return None
+
+
+    def all_of_same(self, sublist, player):
+        for index in sublist:
+            if self.board[index] != player:
+                return False
+        return True

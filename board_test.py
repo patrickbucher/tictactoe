@@ -69,6 +69,7 @@ class BoardTest(unittest.TestCase):
             board.set(position, move)
         self.assertEqual(board.get_board(), moves)
 
+
     def test_illegal_move(self):
         p_x = Fields.PLAYER_X.value
         p_o = Fields.PLAYER_O.value
@@ -79,6 +80,36 @@ class BoardTest(unittest.TestCase):
         board.set(9, p_o)
         with self.assertRaises(ValueError):
             board.set(9, p_x)
+
+
+    def test_winner(self):
+        x = Fields.PLAYER_X.value
+        o = Fields.PLAYER_O.value
+        e = Fields.EMPTY.value
+        winners = [
+            ([e, e, e,
+              e, e, e,
+              e, e, e], None),
+            ([e, e, e,
+              e, e, e,
+              o, o, o], o),
+            ([x, x, x,
+              o, e, o,
+              e, o, o], x),
+            ([x, o, e,
+              x, e, o,
+              x, o, e], x),
+            ([x, o, x,
+              o, x, o,
+              x, o, e], x),
+            ([x, e, o,
+              e, o, x,
+              o, x, e], o),
+        ]
+        for item in winners:
+            board = item[0]
+            winner = item[1]
+            self.assertEqual(Board(board).winner(), winner)
 
 
 if __name__ == '__main__':
