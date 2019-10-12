@@ -91,3 +91,7 @@ class Board:
             if self.is_full():
                 return Results.DRAW
         return Results.UNDECIDED
+    
+
+    def empty_fields(self):
+        return [i+1 for i, v in enumerate(self.board) if v == Fields.EMPTY.value]

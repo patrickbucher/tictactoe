@@ -160,5 +160,29 @@ class BoardTest(unittest.TestCase):
             result = item[1]
             self.assertEqual(Board(board).result(), result)
 
+
+    def test_empty_fields(self):
+        x = Fields.PLAYER_X.value
+        o = Fields.PLAYER_O.value
+        e = Fields.EMPTY.value
+        games = [
+            ([o, e, o,
+              e, x, e,
+              x, e, e], [2, 4, 6, 8, 9]),
+            ([x, o, x,
+              o, x, o,
+              o, x, o], []),
+            ([x, o, e,
+              o, x, e,
+              o, e, x], [3, 6, 8]),
+            ([o, e, e,
+              e, x, e,
+              o, e, x], [2, 3, 4, 6, 8]),
+        ]
+        for item in games:
+            board = item[0]
+            empty_fields = item[1]
+            self.assertEqual(Board(board).empty_fields(), empty_fields)
+
 if __name__ == '__main__':
     unittest.main()
