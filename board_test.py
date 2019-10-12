@@ -150,10 +150,10 @@ class BoardTest(unittest.TestCase):
               o, x, o], Results.DRAW),
             ([x, o, e,
               o, x, e,
-              o, e, x], Results.PLAYER_1_WINS),
+              o, e, x], Results.PLAYER_X_WINS),
             ([o, x, e,
               x, o, e,
-              x, e, o], Results.PLAYER_2_WINS),
+              x, e, o], Results.PLAYER_O_WINS),
         ]
         for item in games:
             board = item[0]

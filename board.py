@@ -84,9 +84,9 @@ class Board:
     def result(self):
         winner = self.winner()
         if winner == Fields.PLAYER_X.value:
-            return Results.PLAYER_1_WINS
+            return Results.PLAYER_X_WINS
         elif winner == Fields.PLAYER_O.value:
-            return Results.PLAYER_2_WINS
+            return Results.PLAYER_O_WINS
         elif winner == None:
             if self.is_full():
                 return Results.DRAW
