@@ -17,7 +17,7 @@ class Board:
         return self.board
 
 
-    def draw(self):
+    def render(self):
         output = ''
         for row in range(0, 3):
             for col in range(0, 3):
@@ -65,5 +65,16 @@ class Board:
     def all_of_same(self, sublist, player):
         for index in sublist:
             if self.board[index] != player:
+                return False
+        return True
+
+
+    def is_draw(self):
+        return self.is_full() and self.winner() is None
+
+
+    def is_full(self):
+        for field in self.board:
+            if field == Fields.EMPTY.value:
                 return False
         return True

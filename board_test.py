@@ -42,7 +42,7 @@ class BoardTest(unittest.TestCase):
             Board(illegal_board)
 
 
-    def test_draw(self):
+    def test_render(self):
         empty = Fields.EMPTY.value
         p_x = Fields.PLAYER_X.value
         p_o = Fields.PLAYER_O.value
@@ -51,8 +51,8 @@ class BoardTest(unittest.TestCase):
             p_x, p_x, empty, 
             p_o, p_o, p_x,
         ]
-        board_drawn = '{}{}{}\n{}{}{}\n{}{}{}'.format(*tuple(board))
-        self.assertEqual(Board(board).draw(), board_drawn)
+        board_rendered = '{}{}{}\n{}{}{}\n{}{}{}'.format(*tuple(board))
+        self.assertEqual(Board(board).render(), board_rendered)
 
 
     def test_legal_moves(self):
@@ -105,12 +105,36 @@ class BoardTest(unittest.TestCase):
             ([x, e, o,
               e, o, x,
               o, x, e], o),
+            ([x, o, x,
+              o, o, x,
+              x, x, o], None),
         ]
         for item in winners:
             board = item[0]
             winner = item[1]
             self.assertEqual(Board(board).winner(), winner)
 
+    def test_is_draw(self):
+        x = Fields.PLAYER_X.value
+        o = Fields.PLAYER_O.value
+        draws = [
+            ([x, o, x,
+              x, o, o,
+              o, x, x], True),
+            ([x, o, x,
+              x, x, o,
+              o, o, x], False),
+            ([x, x, o,
+              o, o, x,
+              x, o, x], True),
+            ([x, o, x,
+              o, o, o,
+              x, x, o], False),
+        ]
+        for item in draws:
+            board = item[0]
+            is_draw = item[1]
+            self.assertEqual(Board(board).is_draw(), is_draw)
 
 if __name__ == '__main__':
     unittest.main()
