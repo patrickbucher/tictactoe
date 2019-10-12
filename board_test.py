@@ -28,6 +28,7 @@ class BoardTest(unittest.TestCase):
         board = Board(played_board)
         self.assertEqual(board.get_board(), played_board)
 
+
     def test_init_illegal_fields(self):
         empty = Fields.EMPTY.value
         p_x = Fields.PLAYER_X.value
@@ -35,10 +36,50 @@ class BoardTest(unittest.TestCase):
         illegal_board = [
             empty, p_x, p_o,
             p_o, empty, p_x,
-            'S', empty, empty,
+            '%', empty, empty,
         ]
         with self.assertRaises(ValueError):
             Board(illegal_board)
+
+
+    def test_draw(self):
+        empty = Fields.EMPTY.value
+        p_x = Fields.PLAYER_X.value
+        p_o = Fields.PLAYER_O.value
+        board = [
+            p_x, p_o, empty,
+            p_x, p_x, empty, 
+            p_o, p_o, p_x,
+        ]
+        board_drawn = '{}{}{}\n{}{}{}\n{}{}{}'.format(*tuple(board))
+        self.assertEqual(Board(board).draw(), board_drawn)
+
+
+    def test_legal_moves(self):
+        p_x = Fields.PLAYER_X.value
+        p_o = Fields.PLAYER_O.value
+        moves = [
+            p_x, p_o, p_x,
+            p_o, p_x, p_o,
+            p_x, p_o, p_x,
+        ]
+        board = Board()
+        for index, move in enumerate(moves):
+            position = index + 1
+            board.set(position, move)
+        self.assertEqual(board.get_board(), moves)
+
+    def test_illegal_move(self):
+        p_x = Fields.PLAYER_X.value
+        p_o = Fields.PLAYER_O.value
+        board = Board()
+        board.set(5, p_x)
+        board.set(2, p_o)
+        board.set(1, p_x)
+        board.set(9, p_o)
+        with self.assertRaises(ValueError):
+            board.set(9, p_x)
+
 
 if __name__ == '__main__':
     unittest.main()

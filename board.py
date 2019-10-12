@@ -22,7 +22,8 @@ class Board:
         for row in range(0, 3):
             for col in range(0, 3):
                 output += self.board[col + row * 3]
-            output += '\n'
+            if row < 2:
+                output += '\n'
         return output
 
 
