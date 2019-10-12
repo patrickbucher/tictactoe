@@ -1,7 +1,8 @@
 import unittest
 
-from fields import Fields
 from board import Board
+from fields import Fields
+from results import Results
 
 class BoardTest(unittest.TestCase):
 
@@ -135,6 +136,29 @@ class BoardTest(unittest.TestCase):
             board = item[0]
             is_draw = item[1]
             self.assertEqual(Board(board).is_draw(), is_draw)
+
+    def test_result(self):
+        x = Fields.PLAYER_X.value
+        o = Fields.PLAYER_O.value
+        e = Fields.EMPTY.value
+        games = [
+            ([o, e, o,
+              e, x, e,
+              x, e, e], Results.UNDECIDED),
+            ([x, o, x,
+              o, x, o,
+              o, x, o], Results.DRAW),
+            ([x, o, e,
+              o, x, e,
+              o, e, x], Results.PLAYER_1_WINS),
+            ([o, x, e,
+              x, o, e,
+              x, e, o], Results.PLAYER_2_WINS),
+        ]
+        for item in games:
+            board = item[0]
+            result = item[1]
+            self.assertEqual(Board(board).result(), result)
 
 if __name__ == '__main__':
     unittest.main()

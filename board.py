@@ -1,4 +1,5 @@
 from fields import Fields
+from results import Results
 
 class Board:
     def __init__(self, board=None):
@@ -78,3 +79,15 @@ class Board:
             if field == Fields.EMPTY.value:
                 return False
         return True
+
+
+    def result(self):
+        winner = self.winner()
+        if winner == Fields.PLAYER_X.value:
+            return Results.PLAYER_1_WINS
+        elif winner == Fields.PLAYER_O.value:
+            return Results.PLAYER_2_WINS
+        elif winner == None:
+            if self.is_full():
+                return Results.DRAW
+        return Results.UNDECIDED
