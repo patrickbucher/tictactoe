@@ -10,5 +10,4 @@ if __name__ == '__main__':
     ]
     board = Board(board=init_state)
     board.set(2, 'x')
-    board.output()
-
+    print(board.draw())

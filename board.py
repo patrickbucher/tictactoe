@@ -13,11 +13,18 @@ class Board:
                     raise ValueError('illegal field value "{:s}"'.format(field))
             self.board = board
 
-    def output(self):
+    def get_board(self):
+        return self.board
+
+
+    def draw(self):
+        output = ''
         for row in range(0, 3):
             for col in range(0, 3):
-                print(self.board[col + row * 3], end='')
-            print()
+                output += self.board[col + row * 3]
+            output += '\n'
+        return output
+
 
     def set(self, pos, player):
         index = pos - 1
