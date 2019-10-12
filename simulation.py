@@ -60,6 +60,7 @@ def middle_random_option_strategy(board):
 def corner_random_option_strategy(board):
     options = board.empty_fields()
 
+    # try to pick a corner first
     corners = [1, 3, 7, 9]
     random.shuffle(corners)
     for corner in corners:
@@ -71,11 +72,14 @@ def corner_random_option_strategy(board):
 def corner_middle_random_option_strategy(board):
     options = board.empty_fields()
 
+    # try to pick a corner first
     corners = [1, 3, 7, 9]
     random.shuffle(corners)
     for corner in corners:
         if corner in options:
             return corner
+
+    # use middle, if no corner free
     if 5 in options:
         return 5
 
